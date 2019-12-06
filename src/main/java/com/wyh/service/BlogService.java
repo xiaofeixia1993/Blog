@@ -3,6 +3,7 @@ package com.wyh.service;
 import com.wyh.entity.Blog;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 博客Service接口
@@ -16,4 +17,18 @@ public interface BlogService {
      * @return
      */
     public List<Blog> countList();
+
+    /**
+     * 分页查询博客
+     * @param map
+     * @return
+     */
+    public List<Blog> list(Map<String,Object> map);
+
+    /**
+     * 获取总记录数
+     * @param map
+     * @return
+     */
+    public Long getTotal(Map<String,Object> map);
 }

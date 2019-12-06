@@ -14,11 +14,23 @@
         <result property="content" column="content"/>
         <result property="keyWord" column="keyWord"/>
 
-        <association property="blogType" column="typeId" select="com.java1234.dao.BlogTypeDao.findById"></association>
+        <association property="blogType" column="typeId" select="com.wyh.dao.BlogTypeDao.findById"></association>
     </resultMap>
 
     <select id="countList" resultMap="BlogResult">
 		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr,COUNT(*) AS blogCount  FROM t_blog GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月') ORDER BY  DATE_FORMAT(releaseDate,'%Y年%m月') DESC;
+	</select>
+
+    <select id="list" parameterType="Map" resultMap="BlogResult">
+        select * from t_blog
+        order by releaseDate desc
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Long">
+		select count(*) from t_blog
 	</select>
 
 </mapper>
