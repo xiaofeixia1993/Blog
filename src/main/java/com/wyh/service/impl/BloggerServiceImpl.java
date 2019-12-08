@@ -20,10 +20,12 @@ public class BloggerServiceImpl implements BloggerService{
     @Autowired
     private BloggerDao bloggerDao;
 
+    @Override
     public Blogger getByUserName(String userName) {
         return bloggerDao.getByUserName(userName);
     }
 
+    @Override
     public Blogger find() {
         return bloggerDao.find();
     }

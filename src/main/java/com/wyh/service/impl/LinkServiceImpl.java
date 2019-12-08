@@ -20,6 +20,7 @@ public class LinkServiceImpl implements LinkService {
     @Resource
     private LinkDao linkDao;
 
+    @Override
     public List<Link> list(Map<String, Object> map) {
         return linkDao.list(map);
     }

@@ -20,15 +20,28 @@ public class BlogServiceImpl implements BlogService {
     @Resource
     private BlogDao blogDao;
 
+    @Override
     public List<Blog> countList() {
         return blogDao.countList();
     }
 
+    @Override
     public List<Blog> list(Map<String, Object> map) {
         return blogDao.list(map);
     }
 
+    @Override
     public Long getTotal(Map<String, Object> map) {
         return blogDao.getTotal(map);
+    }
+
+    @Override
+    public Blog findById(Integer id) {
+        return blogDao.findById(id);
+    }
+
+    @Override
+    public Integer update(Blog blog) {
+        return blogDao.update(blog);
     }
 }

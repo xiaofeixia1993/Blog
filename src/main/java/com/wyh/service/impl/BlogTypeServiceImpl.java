@@ -19,6 +19,7 @@ public class BlogTypeServiceImpl implements BlogTypeService {
     @Resource
     private BlogTypeDao blogTypeDao;
 
+    @Override
     public List<BlogType> countList() {
         return blogTypeDao.countList();
     }
