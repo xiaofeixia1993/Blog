@@ -15,20 +15,12 @@
                     <span class="date"><a href="${pageContext.request.contextPath}/blog/articles/52.html"><fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy年MM月dd日"/></a></span>
                     <span class="title"><a href="${pageContext.request.contextPath}/blog/articles/52.html">${blog.title }</a></span>
                     <span class="summary">摘要: ${blog.summary }...</span>
-                    <!--
-					  	<span class="img">
-
-						  		<a href="/blog/articles/52.html"><img src="${pageContext.request.contextPath}/static/userImages/a.jpg" alt="1455539511890048174.jpg"></a>
-						  		&nbsp;&nbsp;
-
-						  		<a href="/blog/articles/52.html"><img alt="QQ鎴浘20160215203213.jpg" src="${pageContext.request.contextPath}/static/userImages/b.jpg" title="1455539700734093102.jpg" width="667" height="264" style="width: 667px; height: 264px;"></a>
-						  		&nbsp;&nbsp;
-
-						  		<a href="/blog/articles/52.html"><img alt="QQ鎴浘20160215203317.jpg" src="${pageContext.request.contextPath}/static/userImages/c.jpg" title="1455539761187019902.jpg"></a>
-						  		&nbsp;&nbsp;
-
-					  	</span>
-					  	 -->
+                    <span class="img">
+					  		<c:forEach var="image" items="${blog.imageList }">
+                                <a href="/blog/articles/52.html">${image}</a>
+                                &nbsp;&nbsp;
+                            </c:forEach>
+                    </span>
                     <span class="info">发表于 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/> 阅读(${blog.clickHit }) 评论(${blog.replyHit }) </span>
 
                 </li>
@@ -36,4 +28,11 @@
             </c:forEach>
         </ul>
     </div>
+</div>
+<div>
+    <nav>
+        <ul class="pagination pagination-sm">
+            ${pageCode }
+        </ul>
+    </nav>
 </div>
