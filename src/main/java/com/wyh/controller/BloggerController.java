@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyh.entity.Blogger;
 import com.wyh.service.BloggerService;
 import com.wyh.util.CryptographyUtil;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 博主Controller层
@@ -39,5 +40,13 @@ public class BloggerController {
             request.setAttribute("errorInfo", "用户名或者密码错误！");
             return "login";
         }
+    }
+
+    @RequestMapping("/aboutMe")
+    public ModelAndView aboutMe() throws Exception {
+        ModelAndView mav = new ModelAndView("mainTemp");
+        mav.addObject("pageTitle", "关于博主_java开源博客系统");
+        mav.addObject("mainPage", "foreground/blogger/info.jsp");
+        return mav;
     }
 }
