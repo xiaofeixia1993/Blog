@@ -25,8 +25,4 @@ public class LinkServiceImpl implements LinkService {
         return linkDao.list(map);
     }
 
-
-
-
-
 }
