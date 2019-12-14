@@ -3,6 +3,28 @@
     function showOtherComment(){
         $(".otherComment").show();
     }
+
+    function loadimage(){
+        document.getElementById("randImage").src="${pageContext.request.contextPath}/image.jsp?"+Math.random();
+    }
+
+    function submitData(){
+        var content=$("#content").val();
+        var imageCode=$("#imageCode").val();
+        if(content==null || content==""){
+            alert("请输入评论内容！");
+        }else if(imageCode==null || imageCode==""){
+            alert("请填写验证码！");
+        }else{
+            $.post("${pageContext.request.contextPath}/comment/save.do",{"content":content,'imageCode':imageCode,'blog.id':'${blog.id}'},function(result){
+                if(result.success){
+                    alert("评论已提成成功，审核通过后显示！");
+                }else{
+                    alert(result.errorInfo);
+                }
+            },"json");
+        }
+    }
 </script>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -77,5 +99,24 @@
                 </c:forEach>
             </c:otherwise>
         </c:choose>
+    </div>
+</div>
+
+<div class="data_list" >
+    <div class="data_list_title">
+        <img src="/static/images/publish_comment_icon.png"/>
+        发表评论
+    </div>
+    <div class="publish_comment">
+        <div>
+            <textarea style="width: 100%" rows="3" id="content" name="content" placeholder="来说两句吧..."></textarea>
+        </div>
+        <div class="verCode">
+            验证码：<input type="text" value="" name="imageCode"  id="imageCode" size="10" onkeydown= "if(event.keyCode==13)form1.submit()"/>&nbsp;<img onclick="javascript:loadimage();"  title="换一张试试" name="randImage" id="randImage" src="/image.jsp" width="60" height="20" border="1" align="absmiddle">
+        </div>
+        <div class="publishButton">
+            <button class="btn btn-primary" type="button" onclick="submitData()">发表评论</button>
+        </div>
+        </form>
     </div>
 </div>

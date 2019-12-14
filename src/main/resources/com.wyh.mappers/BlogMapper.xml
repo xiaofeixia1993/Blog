@@ -59,6 +59,9 @@
             <if test="clickHit!=null">
                 clickHit=#{clickHit},
             </if>
+            <if test="replyHit!=null">
+                replyHit=#{replyHit},
+            </if>
         </set>
         where id=#{id}
     </update>

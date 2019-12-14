@@ -20,8 +20,13 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     private CommentDao commentDao;
 
+    @Override
     public List<Comment> list(Map<String, Object> map) {
         return commentDao.list(map);
     }
 
+    @Override
+    public int add(Comment comment) {
+        return commentDao.add(comment);
+    }
 }
