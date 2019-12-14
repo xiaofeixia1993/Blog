@@ -108,6 +108,7 @@
     padding-bottom: 30px;
 }
 
+
 .data_list .blog_share{
     padding-left: 330px;
     padding-bottom: 20px;
@@ -128,4 +129,23 @@
 .data_list .blog_lastAndNextPage{
     border-top:1px dotted black;
     padding: 10px;
+}
+
+.data_list .commentDatas{
+    padding: 10px;
+}
+
+.data_list .commentDatas .comment{
+    margin-top:10px;
+    margin-bottom: 5px;
+    padding-bottom:15px;
+    border-bottom: 1px dotted gray;
+}
+
+.data_list .commentDatas .comment font ,.data_list .commentDatas .otherComment font{
+    font-weight: bold;
+}
+
+.data_list .commentDatas .otherComment{
+    display: none;
 }

@@ -2,6 +2,7 @@ package com.wyh.controller;
 
 import com.wyh.entity.Blog;
 import com.wyh.service.BlogService;
+import com.wyh.service.CommentService;
 import com.wyh.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 博客Controller层
@@ -23,6 +26,9 @@ public class BlogController {
 
     @Resource
     private BlogService blogService;
+
+    @Resource
+    private CommentService commentService;
 
     /**
      * 请求博客详细信息
@@ -45,6 +51,10 @@ public class BlogController {
         mav.addObject("blog",blog);
         blog.setClickHit(blog.getClickHit()+1);
         blogService.update(blog);
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("blogId", blog.getId());
+        map.put("state", 1);
+        mav.addObject("commentList", commentService.list(map));
         mav.addObject("pageCode", this.getUpAndDownPageCode(blogService.getLastBlog(id), blogService.getNextBlog(id), request.getServletContext().getContextPath()));
         mav.addObject("pageTitle", blog.getTitle()+"java开源博客系统");
         mav.addObject("mainPage", "foreground/blog/view.jsp");
