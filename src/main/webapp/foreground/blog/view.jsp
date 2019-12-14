@@ -1,4 +1,8 @@
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
+
 <script type="text/javascript">
+    SyntaxHighlighter.all();
 
     function showOtherComment(){
         $(".otherComment").show();
