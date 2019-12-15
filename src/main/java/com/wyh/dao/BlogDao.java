@@ -59,4 +59,11 @@ public interface BlogDao {
      * @return
      */
     public Blog getNextBlog(Integer id);
+
+    /**
+     * 添加博客信息
+     * @param blog
+     * @return
+     */
+    public Integer add(Blog blog);
 }
