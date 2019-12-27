@@ -34,6 +34,7 @@
                 alert("请填写内容！");
             }else{
                 $.post("${pageContext.request.contextPath}/admin/blog/save.do",{'title':title,'blogType.id':blogTypeId,
+                    'contentNoTag':UE.getEditor('editor').getContentTxt(),
                     'content':content,'summary':UE.getEditor('editor').getContentTxt().substr(0,155),'keyWord':keyWord},function(result){
                     if(result.success){
                         alert("博客发布成功！");

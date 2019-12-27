@@ -1,6 +1,7 @@
 package com.wyh.controller.admin;
 
 import com.wyh.entity.Blog;
+import com.wyh.lucene.BlogIndex;
 import com.wyh.service.BlogService;
 import com.wyh.util.ResponseUtil;
 import net.sf.json.JSONObject;
@@ -22,6 +23,8 @@ public class BlogAdminController {
     @Resource
     private BlogService blogService;
 
+    private BlogIndex blogIndex = new BlogIndex();
+
     /**
      * 添加或者修改博客信息
      * @param blog
@@ -34,6 +37,7 @@ public class BlogAdminController {
         int resultTotal=0;
         if(blog.getId()==null){
             resultTotal=blogService.add(blog);
+            blogIndex.addIndex(blog);
         }else{
 
         }
