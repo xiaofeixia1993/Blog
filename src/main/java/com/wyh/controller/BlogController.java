@@ -1,18 +1,21 @@
 package com.wyh.controller;
 
 import com.wyh.entity.Blog;
+import com.wyh.lucene.BlogIndex;
 import com.wyh.service.BlogService;
 import com.wyh.service.CommentService;
 import com.wyh.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +32,8 @@ public class BlogController {
 
     @Resource
     private CommentService commentService;
+
+    private BlogIndex blogIndex=new BlogIndex();
 
     /**
      * 请求博客详细信息
@@ -83,5 +88,24 @@ public class BlogController {
             pageCode.append("<p>下一篇：<a href='"+projectContext+"/blog/articles/"+nextBlog.getId()+".html'>"+nextBlog.getTitle()+"</a></p>");
         }
         return pageCode.toString();
+    }
+
+    /**
+     * 根据关键字查询相关博客信息
+     * @param q
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/q")
+    public ModelAndView search(@RequestParam(value="q",required=false) String q)throws Exception{
+        ModelAndView mav=new ModelAndView();
+        mav.addObject("pageTitle", "搜索关键字'"+q+"'结果页面_java开源博客系统");
+        mav.addObject("mainPage", "foreground/blog/result.jsp");
+        List<Blog> blogList=blogIndex.searchBlog(q);
+        mav.addObject("blogList", blogList);
+        mav.addObject("q", q);
+        mav.addObject("resultTotal", blogList.size());
+        mav.setViewName("mainTemp");
+        return mav;
     }
 }
