@@ -97,15 +97,54 @@ public class BlogController {
      * @throws Exception
      */
     @RequestMapping("/q")
-    public ModelAndView search(@RequestParam(value="q",required=false) String q)throws Exception{
+    public ModelAndView search(@RequestParam(value="q",required=false) String q,@RequestParam(value="page",required=false) String page,HttpServletRequest request)throws Exception{
+        int pageSize=3;
+        if(StringUtil.isEmpty(page)){
+            page="1";
+        }
         ModelAndView mav=new ModelAndView();
         mav.addObject("pageTitle", "搜索关键字'"+q+"'结果页面_java开源博客系统");
         mav.addObject("mainPage", "foreground/blog/result.jsp");
         List<Blog> blogList=blogIndex.searchBlog(q);
-        mav.addObject("blogList", blogList);
+        Integer toIndex=blogList.size()>=Integer.parseInt(page)*pageSize?Integer.parseInt(page)*pageSize:blogList.size();
+        mav.addObject("blogList", blogList.subList((Integer.parseInt(page)-1)*pageSize, toIndex));
+        mav.addObject("pageCode",this.genUpAndDownPageCode(Integer.parseInt(page), blogList.size(), q, pageSize, request.getServletContext().getContextPath()));
         mav.addObject("q", q);
         mav.addObject("resultTotal", blogList.size());
         mav.setViewName("mainTemp");
         return mav;
+    }
+
+    /**
+     * 获取上一页，下一页代码
+     * @param page
+     * @param totalNum
+     * @param q
+     * @param pageSize
+     * @param projectContext
+     * @return
+     */
+    private String genUpAndDownPageCode(Integer page,Integer totalNum,String q,Integer pageSize,String projectContext){
+        long totalPage=totalNum%pageSize==0?totalNum/pageSize:totalNum/pageSize+1;
+        StringBuffer pageCode=new StringBuffer();
+        if(totalPage==0){
+            return "";
+        }else{
+            pageCode.append("<nav>");
+            pageCode.append("<ul class='pager'>");
+            if(page>1){
+                pageCode.append("<li><a href='"+projectContext+"/blog/q.html?page="+(page-1)+"&q="+q+"'>上一页</a></li>");
+            }else{
+                pageCode.append("<li class='disabled'><a href='#'>上一页</a></li>");
+            }
+            if(page<totalPage){
+                pageCode.append("<li><a href='"+projectContext+"/blog/q.html?page="+(page+1)+"&q="+q+"'>下一页</a></li>");
+            }else{
+                pageCode.append("<li class='disabled'><a href='#'>下一页</a></li>");
+            }
+            pageCode.append("</ul>");
+            pageCode.append("</nav>");
+        }
+        return pageCode.toString();
     }
 }

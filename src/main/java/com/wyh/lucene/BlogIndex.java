@@ -9,6 +9,7 @@ import java.util.List;
 import com.wyh.entity.Blog;
 import com.wyh.util.DateUtil;
 import com.wyh.util.StringUtil;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.document.Document;
@@ -99,7 +100,7 @@ public class BlogIndex {
             blog.setId(Integer.parseInt(doc.get("id")));
             blog.setReleaseDateStr(doc.get("releaseDate"));
             String title=doc.get("title");
-            String content=doc.get("content");
+            String content = StringEscapeUtils.escapeHtml(doc.get("content"));
             if(title!=null){
                 TokenStream tokenStream=analyzer.tokenStream("title", new StringReader(title));
                 String hTitle=highlighter.getBestFragment(tokenStream, title);
