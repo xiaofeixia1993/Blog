@@ -24,6 +24,9 @@
     <select id="list" parameterType="Map" resultMap="BlogResult">
         select * from t_blog
         <where>
+            <if test="title!=null and title!='' ">
+                and title like #{title}
+            </if>
             <if test="typeId!=null and typeId!='' ">
                 and typeId=#{typeId}
             </if>
@@ -40,6 +43,9 @@
     <select id="getTotal" parameterType="Map" resultType="Long">
 		select count(*) from t_blog
         <where>
+            <if test="title!=null and title!='' ">
+                and title like #{title}
+            </if>
             <if test="typeId!=null and typeId!='' ">
                 and typeId=#{typeId}
             </if>
