@@ -83,4 +83,8 @@
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Blog">
 		insert into t_blog values(null,#{title},#{summary},now(),0,0,#{content},#{blogType.id},#{keyWord})
 	</insert>
+
+    <delete id="delete" parameterType="Integer">
+		delete from t_blog where id=#{id}
+	</delete>
 </mapper>

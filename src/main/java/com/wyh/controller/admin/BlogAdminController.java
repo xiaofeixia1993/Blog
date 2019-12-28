@@ -86,4 +86,24 @@ public class BlogAdminController {
         ResponseUtil.write(response, result);
         return null;
     }
+
+    /**
+     * 博客信息删除
+     * @param ids
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/delete")
+    public String delete(@RequestParam(value="ids",required=false)String ids,HttpServletResponse response)throws Exception{
+        String []idsStr=ids.split(",");
+        for(int i=0;i<idsStr.length;i++){
+            blogService.delete(Integer.parseInt(idsStr[i]));
+            blogIndex.deleteIndex(idsStr[i]);
+        }
+        JSONObject result=new JSONObject();
+        result.put("success", true);
+        ResponseUtil.write(response, result);
+        return null;
+    }
 }
