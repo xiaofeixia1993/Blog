@@ -47,7 +47,8 @@ public class BlogAdminController {
             resultTotal=blogService.add(blog);
             blogIndex.addIndex(blog);
         }else{
-
+            resultTotal=blogService.update(blog);
+            blogIndex.updateIndex(blog);
         }
         JSONObject result=new JSONObject();
         if(resultTotal>0){
@@ -103,6 +104,21 @@ public class BlogAdminController {
         }
         JSONObject result=new JSONObject();
         result.put("success", true);
+        ResponseUtil.write(response, result);
+        return null;
+    }
+
+    /**
+     * 通过Id查找实体
+     * @param id
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/findById")
+    public String findById(@RequestParam(value="id")String id,HttpServletResponse response)throws Exception{
+        Blog blog=blogService.findById(Integer.parseInt(id));
+        JSONObject result=JSONObject.fromObject(blog);//把博客对象直接转换为json格式
         ResponseUtil.write(response, result);
         return null;
     }
