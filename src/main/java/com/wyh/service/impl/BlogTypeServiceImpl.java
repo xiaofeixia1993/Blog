@@ -32,4 +32,16 @@ public class BlogTypeServiceImpl implements BlogTypeService {
     public Long getTotal(Map<String, Object> map) {
         return blogTypeDao.getTotal(map);
     }
+
+    public Integer add(BlogType blogType) {
+        return blogTypeDao.add(blogType);
+    }
+
+    public Integer update(BlogType blogType) {
+        return blogTypeDao.update(blogType);
+    }
+
+    public Integer delete(Integer id) {
+        return blogTypeDao.delete(id);
+    }
 }

@@ -73,4 +73,11 @@ public interface BlogService {
      * @return
      */
     public Integer delete(Integer id);
+
+    /**
+     * 查询指定的博客类别下的博客数量
+     * @param typeId
+     * @return
+     */
+    public Integer getBlogByTypeId(Integer typeId);
 }

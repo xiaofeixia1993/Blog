@@ -2,6 +2,7 @@ package com.wyh.controller.admin;
 
 import com.wyh.entity.BlogType;
 import com.wyh.entity.PageBean;
+import com.wyh.service.BlogService;
 import com.wyh.service.BlogTypeService;
 import com.wyh.util.ResponseUtil;
 import net.sf.json.JSONArray;
@@ -28,6 +29,9 @@ public class BlogTypeAdminController {
     @Resource
     private BlogTypeService blogTypeService;
 
+    @Resource
+    private BlogService blogService;
+
     /**
      * 分页查询博客类别信息
      * @param page
@@ -48,6 +52,54 @@ public class BlogTypeAdminController {
         JSONArray jsonArray= JSONArray.fromObject(blogTypeList);
         result.put("rows", jsonArray);
         result.put("total", total);
+        ResponseUtil.write(response, result);
+        return null;
+    }
+
+    /**
+     * 添加或者修改博客类别信息
+     * @param blogType
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/save")
+    public String save(BlogType blogType,HttpServletResponse response)throws Exception{
+        int resultTotal=0;
+        if(blogType.getId()==null){
+            resultTotal=blogTypeService.add(blogType);
+        }else{
+            resultTotal=blogTypeService.update(blogType);
+        }
+        JSONObject result=new JSONObject();
+        if(resultTotal>0){
+            result.put("success", true);
+        }else{
+            result.put("success", false);
+        }
+        ResponseUtil.write(response, result);
+        return null;
+    }
+
+    /**
+     * 博客类别信息删除
+     * @param ids
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/delete")
+    public String delete(@RequestParam(value="ids",required=false)String ids,HttpServletResponse response)throws Exception{
+        String []idsStr=ids.split(",");
+        JSONObject result=new JSONObject();
+        for(int i=0;i<idsStr.length;i++){
+            if(blogService.getBlogByTypeId(Integer.parseInt(idsStr[i]))>0){
+                result.put("exist", "博客类别下有博客，不能删除！");
+            }else{
+                blogTypeService.delete(Integer.parseInt(idsStr[i]));
+            }
+        }
+        result.put("success", true);
         ResponseUtil.write(response, result);
         return null;
     }

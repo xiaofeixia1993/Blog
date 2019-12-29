@@ -102,4 +102,8 @@
     <delete id="delete" parameterType="Integer">
 		delete from t_blog where id=#{id}
 	</delete>
+
+    <select id="getBlogByTypeId" parameterType="Integer" resultType="Integer">
+		select count(*) from t_blog where typeId=#{typeId}
+	</select>
 </mapper>
