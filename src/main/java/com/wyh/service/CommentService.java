@@ -39,4 +39,11 @@ public interface CommentService {
      * @return
      */
     public int update(Comment comment);
+
+    /**
+     * 删除博客类别信息
+     * @param id
+     * @return
+     */
+    public Integer delete(Integer id);
 }

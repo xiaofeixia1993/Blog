@@ -79,4 +79,23 @@ public class CommentAdminController {
         ResponseUtil.write(response, result);
         return null;
     }
+
+    /**
+     * 评论信息删除
+     * @param ids
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/delete")
+    public String delete(@RequestParam(value="ids",required=false)String ids,HttpServletResponse response)throws Exception{
+        String []idsStr=ids.split(",");
+        JSONObject result=new JSONObject();
+        for(int i=0;i<idsStr.length;i++){
+            commentService.delete(Integer.parseInt(idsStr[i]));
+        }
+        result.put("success", true);
+        ResponseUtil.write(response, result);
+        return null;
+    }
 }

@@ -51,4 +51,8 @@
         </set>
         where id=#{id}
     </update>
+
+    <delete id="delete" parameterType="Integer">
+		delete from t_comment where id=#{id}
+	</delete>
 </mapper>

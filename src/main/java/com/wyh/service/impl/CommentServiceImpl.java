@@ -37,4 +37,8 @@ public class CommentServiceImpl implements CommentService {
     public int update(Comment comment) {
         return commentDao.update(comment);
     }
+
+    public Integer delete(Integer id) {
+        return commentDao.delete(id);
+    }
 }
