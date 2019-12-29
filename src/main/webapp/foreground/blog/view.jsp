@@ -22,6 +22,7 @@
         }else{
             $.post("${pageContext.request.contextPath}/comment/save.do",{"content":content,'imageCode':imageCode,'blog.id':'${blog.id}'},function(result){
                 if(result.success){
+                    window.location.reload();
                     alert("评论已提成成功，审核通过后显示！");
                 }else{
                     alert(result.errorInfo);

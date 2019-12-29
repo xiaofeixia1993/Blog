@@ -56,4 +56,27 @@ public class CommentAdminController {
         ResponseUtil.write(response, result);
         return null;
     }
+
+    /**
+     * 评论审核
+     * @param ids
+     * @param state
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/review")
+    public String review(@RequestParam(value="ids",required=false)String ids,@RequestParam(value="state",required=false)Integer state,HttpServletResponse response)throws Exception{
+        String []idsStr=ids.split(",");
+        for(int i=0;i<idsStr.length;i++){
+            Comment comment=new Comment();
+            comment.setId(Integer.parseInt(idsStr[i]));
+            comment.setState(state);
+            commentService.update(comment);
+        }
+        JSONObject result=new JSONObject();
+        result.put("success", true);
+        ResponseUtil.write(response, result);
+        return null;
+    }
 }

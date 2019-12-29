@@ -41,4 +41,14 @@
             </if>
         </where>
     </select>
+
+    <update id="update" parameterType="Comment">
+        update t_comment
+        <set>
+            <if test="state!=null">
+                state=#{state},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
 </mapper>
