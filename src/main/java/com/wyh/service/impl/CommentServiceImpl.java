@@ -29,4 +29,8 @@ public class CommentServiceImpl implements CommentService {
     public int add(Comment comment) {
         return commentDao.add(comment);
     }
+
+    public Long getTotal(Map<String, Object> map) {
+        return commentDao.getTotal(map);
+    }
 }

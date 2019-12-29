@@ -25,4 +25,11 @@ public interface CommentService {
      * @return
      */
     public int add(Comment comment);
+
+    /**
+     * 获取总记录数
+     * @param map
+     * @return
+     */
+    public Long getTotal(Map<String,Object> map);
 }
