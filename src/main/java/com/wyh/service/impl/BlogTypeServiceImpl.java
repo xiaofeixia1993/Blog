@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 博客类型Service实现类
@@ -24,5 +25,11 @@ public class BlogTypeServiceImpl implements BlogTypeService {
         return blogTypeDao.countList();
     }
 
+    public List<BlogType> list(Map<String, Object> map) {
+        return blogTypeDao.list(map);
+    }
 
+    public Long getTotal(Map<String, Object> map) {
+        return blogTypeDao.getTotal(map);
+    }
 }

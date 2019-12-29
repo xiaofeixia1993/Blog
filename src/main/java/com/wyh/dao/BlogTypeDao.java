@@ -3,6 +3,7 @@ package com.wyh.dao;
 import com.wyh.entity.BlogType;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 博客类型Dao接口
@@ -23,4 +24,18 @@ public interface BlogTypeDao {
      * @return
      */
     public BlogType findById(Integer id);
+
+    /**
+     * 分页查询博客类别信息
+     * @param map
+     * @return
+     */
+    public List<BlogType> list(Map<String,Object> map);
+
+    /**
+     * 获取总记录数
+     * @param map
+     * @return
+     */
+    public Long getTotal(Map<String,Object> map);
 }
