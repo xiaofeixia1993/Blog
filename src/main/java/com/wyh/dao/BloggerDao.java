@@ -21,4 +21,11 @@ public interface BloggerDao {
      * @return
      */
     public Blogger find();
+
+    /**
+     * 更新博主信息
+     * @param blogger
+     * @return
+     */
+    public Integer update(Blogger blogger);
 }

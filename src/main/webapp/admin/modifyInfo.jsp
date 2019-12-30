@@ -21,12 +21,28 @@
     <script type="text/javascript">
 
 
+        function submitData(){
+            var nickName=$("#nickName").val();
+            var sign=$("#sign").val();
+            var profile=UE.getEditor('profile').getContent();
+
+            if(nickName==null || nickName==''){
+                alert("请输入昵称！");
+            }else if(sign==null || sign==''){
+                alert("请输入个性签名！");
+            }else if(profile==null || profile==''){
+                alert("请输入个人简介！");
+            }else{
+                $("#pF").val(profile);
+                $("#form1").submit();
+            }
+        }
     </script>
 </head>
 <body style="margin: 10px">
 
 <div id="p" class="easyui-panel" title="修改个人信息" style="padding: 10px">
-    <form action="" method="post" enctype="multipart/form-data">
+    <form id="form1" action="${pageContext.request.contextPath}/admin/blogger/save.do" method="post" enctype="multipart/form-data">
         <table cellspacing="20px">
             <tr>
                 <td width="80px">用户名：</td>
@@ -38,13 +54,13 @@
             <tr>
                 <td>昵称：</td>
                 <td>
-                    <input type="text" id="nickName" name="nickName" style="width: 200px" value="${currentUser.nickName }" />
+                    <input type="text" id="nickName" name="nickName" style="width: 200px"  />
                 </td>
             </tr>
             <tr>
                 <td>个性签名：</td>
                 <td>
-                    <input type="text" id="sign" name="sign" style="width: 400px" value="${currentUser.sign }" />
+                    <input type="text" id="sign" name="sign" style="width: 400px"  />
                 </td>
             </tr>
             <tr>
@@ -56,7 +72,8 @@
             <tr>
                 <td valign="top">个人简介：</td>
                 <td>
-                    <script id="profile" name="profile" type="text/plain" style="width:100%;height:500px;"></script>
+                    <script id="profile"  type="text/plain" style="width:100%;height:500px;"></script>
+                    <input type="hidden" id="pF" name="profile"/>
                 </td>
             </tr>
             <tr>
@@ -83,6 +100,8 @@
                 data:{},
                 onsuccess:function(result){
                     result=eval("("+result.responseText+")");
+                    $("#nickName").val(result.nickName);
+                    $("#sign").val(result.sign);
                     UE.getEditor('profile').setContent(result.profile);
                 }
             });
