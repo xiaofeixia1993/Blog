@@ -18,4 +18,32 @@ public interface LinkDao {
      * @return
      */
     public List<Link> list(Map<String,Object> map);
+
+    /**
+     * 获取总记录数
+     * @param map
+     * @return
+     */
+    public Long getTotal(Map<String,Object> map);
+
+    /**
+     * 添加友情链接信息
+     * @param link
+     * @return
+     */
+    public Integer add(Link link);
+
+    /**
+     * 修改友情链接信息
+     * @param link
+     * @return
+     */
+    public Integer update(Link link);
+
+    /**
+     * 删除友情链接信息
+     * @param id
+     * @return
+     */
+    public Integer delete(Integer id);
 }
