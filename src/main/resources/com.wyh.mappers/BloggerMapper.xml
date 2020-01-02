@@ -27,6 +27,9 @@
     <update id="update" parameterType="Blogger">
         update t_blogger
         <set>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
             <if test="nickName!=null and nickName!=''">
                 nickName=#{nickName},
             </if>

@@ -2,6 +2,7 @@ package com.wyh.controller.admin;
 
 import com.wyh.entity.Blogger;
 import com.wyh.service.BloggerService;
+import com.wyh.util.CryptographyUtil;
 import com.wyh.util.DateUtil;
 import com.wyh.util.ResponseUtil;
 import net.sf.json.JSONObject;
@@ -63,6 +64,28 @@ public class BloggerAdminController {
             result.append("<script language='javascript'>alert('修改成功！');</script>");
         }else{
             result.append("<script language='javascript'>alert('修改失败！');</script>");
+        }
+        ResponseUtil.write(response, result);
+        return null;
+    }
+
+    /**
+     * 修改博主密码
+     * @param newPassword
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/modifyPassword")
+    public String modifyPassword(String newPassword,HttpServletResponse response)throws Exception{
+        Blogger blogger=new Blogger();
+        blogger.setPassword(CryptographyUtil.md5(newPassword,"wyh"));
+        int resultTotal=bloggerService.update(blogger);
+        JSONObject result=new JSONObject();
+        if(resultTotal>0){
+            result.put("success", true);
+        }else{
+            result.put("success", false);
         }
         ResponseUtil.write(response, result);
         return null;
