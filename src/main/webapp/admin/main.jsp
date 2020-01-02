@@ -72,6 +72,24 @@
             $("#newPassword2").val("");
         }
 
+        function refreshSystem(){
+            $.post("${pageContext.request.contextPath}/admin/system/refreshSystem.do",{},function(result){
+                if(result.success){
+                    $.messager.alert("系统提示","已成功刷新系统缓存！");
+                }else{
+                    $.messager.alert("系统提示","刷新系统缓存失败！");
+                }
+            },"json");
+        }
+
+        function logout(){
+            $.messager.confirm("系统提示","您确定要退出系统吗?",function(r){
+                if(r){
+                    window.location.href="${pageContext.request.contextPath}/admin/blogger/logout.do";
+                }
+            });
+        }
+
     </script>
 </head>
 <body class="easyui-layout">

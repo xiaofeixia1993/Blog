@@ -6,6 +6,7 @@ import com.wyh.util.CryptographyUtil;
 import com.wyh.util.DateUtil;
 import com.wyh.util.ResponseUtil;
 import net.sf.json.JSONObject;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,5 +90,16 @@ public class BloggerAdminController {
         }
         ResponseUtil.write(response, result);
         return null;
+    }
+
+    /**
+     * 注销
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/logout")
+    public String logout()throws Exception{
+        SecurityUtils.getSubject().logout();
+        return "redirect:/login.jsp";
     }
 }
