@@ -3,9 +3,11 @@ package com.wyh.controller.admin;
 import com.wyh.entity.Link;
 import com.wyh.entity.PageBean;
 import com.wyh.service.LinkService;
+import com.wyh.util.ExcelUtil;
 import com.wyh.util.ResponseUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,6 +96,27 @@ public class LinkAdminController {
         }
         result.put("success", true);
         ResponseUtil.write(response, result);
+        return null;
+    }
+
+    /**
+     * 用模板导出数据
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/export")
+    public String exportLink(@RequestParam(value="page",required=false)String page, @RequestParam(value="rows",required=false)String rows, HttpServletResponse response) {
+        try {
+            PageBean pageBean=new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("start", pageBean.getStart());
+            map.put("size", pageBean.getPageSize());
+            List<Link> linkList=linkService.list(map);
+            Workbook wb= ExcelUtil.fillExcelDataWithTemplate(linkList, "link.xls");
+            ResponseUtil.export(response, wb, "利用模版link导出excel.xls");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

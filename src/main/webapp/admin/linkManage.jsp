@@ -89,6 +89,12 @@
             });
         }
 
+        function exportLink(){
+            var page=$('#dg').datagrid('getPager').data("pagination").options.pageNumber;
+            var rows=$('#dg').datagrid('getPager').data("pagination").options.pageSize;
+            window.location.href="${pageContext.request.contextPath}/admin/link/export.do?page="+page+"&rows="+rows;
+        }
+
     </script>
 </head>
 <body style="margin: 1px">
@@ -110,6 +116,7 @@
         <a href="javascript:openLinkAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
         <a href="javascript:openLinkModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
         <a href="javascript:deleteLink()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+        <a href="javascript:exportLink()" class="easyui-linkbutton" iconCls="icon-export" plain="true">导出</a>
     </div>
 </div>
 
